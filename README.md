@@ -7,7 +7,7 @@
 
 <h1 align="center">
     <a href="https://github.com/Untouchable17/JWT-CrackX">
-        <img src="https://i.ibb.co/mr52LR6k/vvvxv.png" width="700">
+        <img src="https://i.ibb.co/LhJTnLnR/jwt-racke.png" width="700">
     </a>
 </h1>
 
@@ -44,8 +44,9 @@ python3 JWT-CrackX.py [-h] -t TOKEN [-w WORDLIST] [-p PUBKEY]
 
 ---
 <h3 style="text-align:center">Execution Modes</h3>
+
 >  Analysis Mode (default)
-```
+```bash
 python3 JWT-CrackX.py -t <token>
 ```
 - **Header Inspection**
@@ -59,7 +60,7 @@ python3 JWT-CrackX.py -t <token>
    - Displays standard claims (iss, sub, exp, etc.).
 
 > Brute-Force Mode
-```
+```bash
 python3 JWT-CrackX.py -t <token> -w ./wordlists/secrets.txt --threads 12
 ```
 - **Performance**
@@ -67,7 +68,7 @@ python3 JWT-CrackX.py -t <token> -w ./wordlists/secrets.txt --threads 12
    - Multi-threaded execution (default: 8 threads, configurable via --threads)
 
 > Key Confusion Mode
-```
+```bash
 python3 JWT-CrackX.py -t <token> -p ./keys/public.pem
 ```
 - **Supported Key Formats**
