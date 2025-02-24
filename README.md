@@ -92,7 +92,6 @@ cd JWT-CrackX
 pip install -r requirements.txt
 ```
 
----
 <h2 align="center">Contact Developer</h2>
 
     Telegram:           @secdet17
