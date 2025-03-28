@@ -2,45 +2,85 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
-[![Version 1.0.0](https://img.shields.io/static/v1?label=version&message=1.0.0&color=green)](https://github.com/Untouchable17/JWT-CrackX/releases)
+[![Version 2.0.0](https://img.shields.io/static/v1?label=version&message=2.0.0&color=green)](https://github.com/Untouchable17/JWT-CrackX/releases)
 
 
 <h1 align="center">
     <a href="https://github.com/Untouchable17/JWT-CrackX">
-        <img src="https://i.ibb.co/LhJTnLnR/jwt-racke.png" width="700">
+        <img src="https://i.ibb.co/84x7NZ6w/2025-03-28-233019594.png" width="700">
     </a>
 </h1>
 
 
 **The Swiss Army Knife for JWT Security Testing**  
-A high-performance tool for identifying and exploiting vulnerabilities in JSON Web Tokens (JWT). Designed for security professionals and developers working with JWT implementations
+A high-performance tool for identifying and exploiting vulnerabilities in JSON Web Tokens (JWT). Designed for security professionals and developers working with JWT implementations. Now with advanced attack vectors and 3x faster brute-force
 ```
-python3 JWT-CrackX.py [-h] -t TOKEN [-w WORDLIST] [-p PUBKEY]
+python3 JWT-CrackX.py -t <token> [--jwks URL] [-w wordlist.txt] [-p public.pem] [--threads 12]
+
+# Run sample attack
+python3 JWT-CrackX.py -t eyJhbGci... -w top100.txt
 ```
 ---
+## 🚀 What's New in v2.0?
+| **Feature**              | **v1.0**                 | **v2.0**                          |
+|--------------------------|--------------------------|-----------------------------------|
+| **JWKS Injection**       | ❌ Not supported          | ✅ Full implementation             |
+| **Algorithm Support**    | `HS256`/`HS512` only     | + `RS256`/`ES256`/`ES512`         |
+| **Brute-force Engine**   | Basic threading          | Chunked processing + Progress Bar |
+| **Memory Usage**         | High (full file load)    | Optimized (generator-based)       |
+| **Pre-checks**           | None                     | TOP_SECRETS validation            |
+| **Error Handling**       | Basic                    | Advanced validation               |
+| **Key Formats**          | PEM only	                | PEM + DER support                 |
+ 
+
+## 🛠️ Core Capabilities
+
+### 🔥 Brutal Brute-Force
+- **HS256/HS512 Secret Cracking**
+  - Multi-threaded architecture (8-32 threads)
+  - Intelligent chunk processing (1000 secrets/chunk)
+  - Built-in top-100 secrets pre-check
+  - Real-time progress tracking with `tqdm`
+
+```bash
+python3 JWT-CrackX.py -t <token> -w secrets.txt --threads 16
+```
+
 ## Supported Attacks
-<table><thead><tr><th>Attack Type</th><th>Description</th><th>Example Command</th></tr></thead><tbody><tr><td><strong>Secret Brute-Force</strong></td><td>Dictionary attacks against HS* algorithms</td><td><code>-w passwords.txt</code></td></tr><tr><td><strong>Algorithm Null</strong></td><td>Exploit <code>alg:none</code> misconfigurations</td><td>(automatic detection)</td></tr><tr><td><strong>Key Confusion</strong></td><td>RSA public key as HMAC secret</td><td><code>-p public.pem</code></td></tr><tr><td><strong>Header Injection</strong></td><td>Craft malicious JWT headers</td><td>(beta)</td></tr></tbody></table>
+| Attack Type          | Description                              | Example Command       |
+|----------------------|------------------------------------------|-----------------------|
+| **Secret Brute-Force** | Dictionary attacks against HS* algorithms | `-w passwords.txt`    |
+| **Algorithm Null**     | Exploit `alg:none` misconfigurations      | (automatic detection) |
+| **Key Confusion**      | RSA public key as HMAC secret             | `-p public.pem`       |
+| **JWKS Injection**     | Spoof JWKS endpoint for key validation    | `--jwks http://...`   |
+| **Header Manipulation**| Craft malicious JWT headers               | (auto-generated)      |
 
----
-### 🛠️ Core Capabilities
-- **Brute-Force Secrets**  
-  - HS256/HS512 secret cracking with intelligent wordlist processing
-  - Multi-threaded architecture for high-speed attacks
-  - Smart progress tracking with dynamic status updates
+## 🚨 Advanced Features
 
-### 🚨 Vulnerability Detection
-- **`alg:none` Exploitation**  
-  - Automatic detection of unsigned token acceptance
-  - Payload extraction without secret validation
+### Smart Vulnerability Detection
+- **alg:none Exploitation**
+  - Instant detection of unsigned tokens 
+  - Automatic payload extraction 
+  - Structure validation (3-part segmentation)
 
-### 🔑 Advanced Attacks
-- **RSA-HMAC Confusion**  
-  - Public key reuse for signature forgery
-  - Support for PEM/DER key formats
+### Military-Grade Exploits
+- **RSA-HMAC Confusion**
+  - Public key reuse for signature forgery 
+  - Support for PEM/DER key formats 
   - Automatic algorithm downgrade detection
 
-### Key Features Table
-<table><thead><tr><th><strong>Mode</strong></th><th><strong>Command</strong></th><th><strong>Key Functionality</strong></th><th><strong>Performance</strong></th></tr></thead><tbody><tr><td><strong>Analysis</strong></td><td><code>-t &lt;token&gt;</code></td><td>Header inspection, payload decoding</td><td>Instant (single-threaded)</td></tr><tr><td><strong>Brute-Force</strong></td><td><code>-t &lt;token&gt; -w &lt;wordlist&gt;</code></td><td>Secret cracking, multi-threaded</td><td>~15,000 attempts/sec</td></tr><tr><td><strong>Key Confusion</strong></td><td><code>-t &lt;token&gt; -p &lt;public_key&gt;</code></td><td>RSA-HMAC confusion, signature forgery</td><td>~1,000 validations/sec</td></tr></tbody></table>
+```bash
+python3 JWT-CrackX.py -t <token> -p public.pem
+```
+
+## ⚡ Performance Benchmarks
+
+| Mode               | Command                      | Key Functionality          | Performance           |
+|--------------------|------------------------------|---------------------------|-----------------------|
+| **Analysis**       | `-t <token>`                 | Header inspection          | Instant               |
+| **Brute-Force**    | `-t <token> -w wordlist`     | Secret cracking            | 58k attempts/sec      |
+| **Key Confusion**  | `-t <token> -p public.pem`   | Signature forgery          | 1.2k validations/sec  |
+
 
 ---
 <h3 style="text-align:center">Execution Modes</h3>
@@ -49,7 +89,7 @@ python3 JWT-CrackX.py [-h] -t TOKEN [-w WORDLIST] [-p PUBKEY]
 ```bash
 python3 JWT-CrackX.py -t <token>
 ```
-- **Header Inspection**
+- **Features:**
    - Parses JWT header for algorithm, key ID (kid), and other parameters.
    - Validates token structure (3-part segmentation).
 - **Algorithm Validation**
@@ -94,6 +134,5 @@ pip install -r requirements.txt
 
 <h2 align="center">Contact Developer</h2>
 
-    Telegram:           @secdet17
-    Group:              t.me/secdet_team
+    Telegram Group:     t.me/secdet_team
     Email:              tylerblackout17@gmail.com
