@@ -134,5 +134,5 @@ pip install -r requirements.txt
 
 <h2 align="center">Contact Developer</h2>
 
-    Telegram Group:     t.me/secdet_team
+    Telegram Group:     t.me/initial_persistence
     Email:              tylerblackout17@gmail.com
